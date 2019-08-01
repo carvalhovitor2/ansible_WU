@@ -1,0 +1,56 @@
+---
+
+- name: windows update
+  hosts: win
+  ignore_errors: true
+  gather_facts: true
+  tasks:
+
+    - block:
+
+        - name: search wu
+          win_updates:
+            category_names: CriticalUpdates
+            state: searched
+          register: searched
+        - debug: var=searched
+
+           
+        - name: install wu
+          become: yes
+          become_user: Administrador
+          become_method: runas
+          win_updates:
+            category_names: CriticalUpdates
+            state: installed
+            reboot: yes
+          register: installed
+        - debug: var=installed
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        

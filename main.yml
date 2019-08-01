@@ -1,0 +1,21 @@
+---
+- name: loop
+  hosts: localhost
+  ignore_errors: true
+  gather_facts: true
+
+  tasks:
+         - shell: ansible-playbook /home/vitor/Documents/ansible_winUpdate/winUpdateSecurity.yml -i /home/vitor/Documents/host.ini
+           register: results
+           until: "'\"found_update_count\": 0' in results.stdout" 
+           retries: 10
+
+         - shell: ansible-playbook /home/vitor/Documents/ansible_winUpdate/winUpdateCritical.yml -i /home/vitor/Documents/host.ini
+           register: results
+           until: "'\"found_update_count\": 0' in results.stdout" 
+           retries: 10
+
+         - shell: ansible-playbook /home/vitor/Documents/ansible_winUpdate/winUpdateRollups.yml -i /home/vitor/Documents/host.ini
+           register: results
+           until: "'\"found_update_count\": 0' in results.stdout" 
+           retries: 10

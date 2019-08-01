@@ -5,31 +5,54 @@
   ignore_errors: true
   gather_facts: true
   tasks:
+
     - block:
-        - name: reboot
-          win_reboot:
 
         - name: search wu
           win_updates:
             category_names:
-              - CriticalUpdates
-              - SecurityUpdates
               - UpdateRollups
             state: searched
-            log_path: C:/ansible_wu.txt
           register: searched
         - debug: var=searched
 
            
         - name: install wu
+          become: yes
+          become_user: Administrador
+          become_method: runas
           win_updates:
             category_names:
-              - CriticalUpdates
-              - SecurityUpdates
               - UpdateRollups
             state: installed
-            log_path: C:/temp/ansible_wu.txt
-          when: searched.found_update_count > 0
+            reboot: yes
           register: installed
         - debug: var=installed
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
         
