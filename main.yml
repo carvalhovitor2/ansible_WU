@@ -2,7 +2,7 @@
 - name: loop
   hosts: localhost
   ignore_errors: true
-  gather_facts: true
+  #  gather_facts: true
 
   tasks:
          - shell: ansible-playbook /home/vitor/Documents/ansible_winUpdate/winUpdateSecurity.yml -i /home/vitor/Documents/host.ini
